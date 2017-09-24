@@ -1,0 +1,5 @@
+bin/*
+test*
+test/*
+*.exe
+algorithm*

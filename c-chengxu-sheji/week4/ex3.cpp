@@ -83,6 +83,3 @@ int main(){
         std::cout << "-----------------------------------------" << std::endl;
         typo(paragraph);
 }
-
-
-
