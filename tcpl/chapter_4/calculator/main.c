@@ -16,6 +16,7 @@ double pop(void);
 int main(){
         int type;
         double op2;
+        long long_op2;
         char s[MAXOP];
 
         while ((type = getop(s)) != EOF) {
@@ -37,6 +38,13 @@ int main(){
                         op2 = pop();
                         if (op2 != 0.0)
                                 push(pop()/op2);
+                        else
+                                printf("error: zero divisor\n");
+                        break;
+                case '%':
+                        long_op2 = (long) pop();
+                        if (op2 != 0)
+                                push(((long) pop()) % long_op2);
                         else
                                 printf("error: zero divisor\n");
                         break;
