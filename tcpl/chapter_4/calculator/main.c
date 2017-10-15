@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>             /* atof */
+#include <stdlib.h>             /* to use atof */
+#include <math.h>               /* to use sin cos pow, etc */
 #include "calc.h"
 
 
@@ -15,7 +16,7 @@ double pop(void);
 
 int main(){
         int type;
-        double op2;
+        double op1, op2;
         long long_op2;
         char s[MAXOP];
 
@@ -47,6 +48,45 @@ int main(){
                                 push(((long) pop()) % long_op2);
                         else
                                 printf("error: zero divisor\n");
+                        break;
+                case 1:
+                        push(sin(pop()));
+                        break;
+                case 2:
+                        push(cos(pop()));
+                        break;
+                case 3:
+                        push(tan(pop()));
+                        break;
+                case 4:
+                        push(exp(pop()));
+                        break;
+                case 5:
+                        push(log(pop()));
+                        break;
+                case 6:
+                        push(log10(pop()));
+                        break;
+                case 7:
+                        op2 = pop();
+                        op1 = pop();
+                        if (op1 == 0 && op2 <= 0 ){
+                                printf("error: zero base with negative index\n");
+                        } else if (op1 < 0 && (int) op2 != op2){
+                                printf("error: negative base with float index\n");
+                        } else  {
+                                push(pow(op1, op2));
+                        }
+                        break;
+                case 8:
+                        op2 = pop();
+                        if (op2 >= 0)
+                                push(sqrt(pop()));
+                        else
+                                printf("error: negative float to get square root.");
+                        break;
+                case 9:
+                        push(fabs(pop()));
                         break;
                 case '\n':
                         printf("\t%.8g\n", pop());

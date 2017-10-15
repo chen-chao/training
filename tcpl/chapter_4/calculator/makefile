@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -lm
 DEPS = calc.h
 ODIR = obj
 _OBJ = main.o getop.o stack.o getch.o
