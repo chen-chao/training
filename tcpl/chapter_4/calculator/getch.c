@@ -1,7 +1,11 @@
+/* The C Programming Language, 2nd Edition, by Kernighan and Ritchie,
+ * Exercise 4.08 on page 79. Suppose there will never be more than one
+ * character of pushback. Modify getch and ungetch accordingly. */
+
 #include <stdio.h>
 #include <string.h>
 
-#define BUFSIZE 100
+#define BUFSIZE 1
 
 
 char buf[BUFSIZE];
