@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include <string.h>
 #include "calc.h"
-
-#define FUNCNUM 9
-const char *funclist[FUNCNUM] = {"sin", "cos", "tan", "exp", "log", "log10", "pow", "sqrt", "fabs"};
 
 
 int getch(void);
@@ -31,17 +27,11 @@ int getop(char s[]){
         } else if (isalpha(c)){
                 while (isalnum(s[++i] = c = getch()))
                         ;
-                if (i > 1) {
-                        int pos;
-                        for (pos=0; pos<FUNCNUM && strncmp(s, funclist[pos], i-1)!=0; pos++)
-                                ;
-                        if (pos < FUNCNUM){
-                                ungetch(c);
-                                return pos+1;
-                        }
-                }
-                ungetch(c);
-                return UNKNOWN_FUNC;
+                s[i] = '\0';
+                if (c != EOF)
+                        ungetch(c);
+
+                return VARFUNC;
                 
         } else if (!isdigit(c) && c != '.'){
                 return c;       /* not a number */

@@ -2,8 +2,10 @@ CC = gcc
 CFLAGS = -Wall -lm
 DEPS = calc.h
 ODIR = obj
-_OBJ = main.o getop.o stack.o getch.o
+_OBJ = main.o getop.o stack.o getch.o variable.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+install: bin/calculator.out
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -19,3 +21,6 @@ bin/test_stack.out: test/test_stack.o $(ODIR)/stack.o
 
 clean:
 	rm $(ODIR)/*.o
+
+uninstall:
+	rm bin/calculator.out

@@ -1,8 +1,5 @@
 #define NUMBER '0'
-#define UNKNOWN_FUNC 'u'
-
-
-/* extern const char *funclist; */
+#define VARFUNC '1'
 
 
 void push(double);
@@ -10,4 +7,9 @@ double pop(void);
 int getop(char []);
 int getch(void);
 void ungetch(int);
+void set_var(char, float);
+float get_var(char);
+void unset_var(char);
+void print_var();
+
 
