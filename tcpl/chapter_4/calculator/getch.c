@@ -22,6 +22,20 @@ void ungetch(int c){
                 buf[bufp++] = c;
 }
 
+/* This is from
+http://clc-wiki.net/wiki/K%26R2_solutions:Chapter_4:Exercise_7
+
+There are a few situations wherein ungets() using ungetch() may cause
+a problem.  It is because ungets() doesn't do any bounds checking. If
+I have a string of length one million and one and the available space
+in buf[] is only one million, then only after copying the first one
+million characters will I come to know that there isn't any space for
+the last character and depending upon the situation I might have to
+undo the entire process. So ungets() must do its own bounds checking
+for which it will require access to both buf[] and bufp.  Notice that
+if you provide ungets() with access to buf[] and bufp, the whole idea
+of using ungetch() becomes moot.  I'll still use it for brevity.*/
+
 void ungets(char s[]){
         for (int pos = strlen(s)-1; pos>=0; pos--)
                 ungetch(s[pos]);
