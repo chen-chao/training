@@ -2,13 +2,21 @@
  * Exercise 4.08 on page 79. Suppose there will never be more than one
  * character of pushback. Modify getch and ungetch accordingly. */
 
+
 #include <stdio.h>
 #include <string.h>
 
 #define BUFSIZE 1
 
+/* This is the exact menonsahab's answer from
+ http://clc-wiki.net/wiki/K%26R2_solutions:Chapter_4:Exercise_9
 
-char buf[BUFSIZE];
+ The reason why the code in K&R can't handle EOF is because it is
+ defined as follows: #define EOF -1 i.e. its value is negative and a
+ char array can't hold a negative value.  Change the buffer type to
+ int and the problem is solved. */
+
+int buf[BUFSIZE];
 int bufp = 0;
 
 int getch(void){
