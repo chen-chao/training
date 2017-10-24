@@ -13,12 +13,13 @@ $(ODIR)/%.o: %.c $(DEPS)
 bin/calculator.out: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
-test/test_stack.o: test/test_stack.c $(DEPS)
+test/test.o: test/test.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-bin/test_stack.out: test/test_stack.o $(ODIR)/stack.o
+bin/test.out: test/test.o $(ODIR)/stack.o $(ODIR)/getch.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+test: bin/test.out
 clean:
 	rm $(ODIR)/*.o
 
