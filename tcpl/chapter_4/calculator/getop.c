@@ -3,48 +3,43 @@
 #include "calc.h"
 
 
-int getch(void);
-void ungetch(int);
-
-
 /* get the next operator or number */
 int getop(char s[]){
-        int i, c;
+        int i;
+        static int c;
 
-        while ((s[0] = c = getch()) == ' ' || c =='\t')
-                ;
+        while ( c == '\0' || (s[0] = c) == ' ' || c == '\t')
+                c = getchar();
+
         s[1] = '\0';
         i = 0;
 
         if (c == '+' || c == '-'){
-                c = getch();
+                c = getchar();
                 if (!isdigit(c)){
-                        ungetch(c);
                         return s[0];
                 } else {
                         s[++i] = c;
                 }
         } else if (isalpha(c)){
-                while (isalnum(s[++i] = c = getch()))
+                while (isalnum(s[++i] = c = getchar()))
                         ;
                 s[i] = '\0';
-                if (c != EOF)
-                        ungetch(c);
-
                 return VARFUNC;
-                
+
         } else if (!isdigit(c) && c != '.'){
-                return c;       /* not a number */
+                /* not a number, since no extra character is read,
+                 * clear static c for next reading */
+                c = '\0';
+                return s[0]; 
         }
 
-        while (isdigit(s[++i] = c = getch()))
+        while (isdigit(s[++i] = c = getchar()))
                         ;
         if (c == '.')
-                while (isdigit(s[++i] = c = getch()))
+                while (isdigit(s[++i] = c = getchar()))
                         ;
         s[i] = '\0';
-        if (c != EOF)
-                ungetch(c);
 
         return NUMBER;
 }
