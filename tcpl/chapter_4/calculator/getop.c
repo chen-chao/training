@@ -37,8 +37,7 @@ int getop(char s[]){
                 return c;       /* not a number */
         }
 
-        if (isdigit(c))
-                while (isdigit(s[++i] = c = getch()))
+        while (isdigit(s[++i] = c = getch()))
                         ;
         if (c == '.')
                 while (isdigit(s[++i] = c = getch()))
