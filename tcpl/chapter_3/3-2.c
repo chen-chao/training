@@ -66,7 +66,7 @@ int main(){
     char *line;
     size_t len;
     len = getline(&line, &MAXLINE, stdin);
-    if (len<0)
+    if (len==0)
         return -1;
     char *escape_line;
     escape_line = (char *)malloc(2*MAXLINE*sizeof(char));
