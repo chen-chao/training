@@ -32,6 +32,20 @@ int readlines(char *lineptr[], int maxlines){
     return nlines;
 }
 
+/* array form is not compatible with writelines and qsort.
+ * this form is slower than the original, don't know why now*/
+int readlines_all(char lineptr[][MAXLEN], int maxlines) {
+    char line[MAXLEN];
+    int len;
+    int nlines = 0;
+    while ((len = getline(line, MAXLEN)) > 0) {
+        if (nlines >= maxlines)
+            return -1;
+        strcpy(&lineptr[nlines++][0], line);
+    }
+    return nlines;
+}
+
 void writelines(char *lineptr[], int nlines){
     while (nlines-- > 0){
         printf("%s\n", *lineptr++);

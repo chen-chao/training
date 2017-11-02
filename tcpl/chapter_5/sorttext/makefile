@@ -9,6 +9,9 @@ bin/%.o: %.c
 bin/sorttext: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
+bin/test: bin/compare_readlines.o bin/readlines.o bin/alloc.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 clean:
 	rm bin/*.o
 
