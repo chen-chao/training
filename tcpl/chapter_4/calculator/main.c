@@ -104,7 +104,7 @@ int main(){
                         case 8:
                                 op2 = pop();
                                 if (op2 >= 0)
-                                        push(sqrt(pop()));
+                                        push(sqrt(op2));
                                 else
                                         printf("error: negative double to get square root.");
                                 break;
