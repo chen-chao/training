@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -ansi
-_obj = alloc.o readlines.o sorttext.o
+_obj = alloc.o readlines.o quicksort.o sorttext.o
 OBJ = $(patsubst %.o, bin/%.o, $(_obj))
 
 bin/%.o: %.c
