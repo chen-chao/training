@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 void  quicksort(void *v[], int left, int right, int (*comp)(void *, void *)){
     int i, last;
@@ -17,21 +18,33 @@ void  quicksort(void *v[], int left, int right, int (*comp)(void *, void *)){
 }
 
 #include <stdlib.h>
-int numcmp(char *s1, char *s2){
-    double v1, v2;
-    v1 = atof(s1);
-    v2 = atof(s2);
-    if (v1 < v2)
-        return -1;
-    else if (v1 > v2)
-        return 1;
-    else
-        return 0;
-}
-
 void swap(void *v[], int i, int j){
     void *temp;
     temp = v[i];
     v[i] = v[j];
     v[j] = temp;
+}
+
+int numcmp(char *s1, char *s2){
+        double v1, v2;
+        v1 = atof(s1);
+        v2 = atof(s2);
+        if (v1 < v2)
+                return -1;
+        else if (v1 > v2)
+                return 1;
+        else
+                return 0;
+}
+
+int reverse_comp(int (*comp)(void *, void *), char *s1, char *s2){
+        return -1*comp(s1, s2);
+}
+
+int reverse_numcmp(char *s1, char *s2){
+        return reverse_comp((int (*) (void *, void *))numcmp, s1, s2);
+}
+
+int reverse_strcmp(char *s1, char *s2){
+        return reverse_comp((int (*) (void *, void *))strcmp, s1, s2);
 }
