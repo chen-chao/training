@@ -6,7 +6,7 @@ OBJ = $(patsubst %.o, bin/%.o, $(_obj))
 bin/%.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-bin/sorttext: $(OBJ)
+bin/sorttext.exe: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 bin/test: bin/compare_readlines.o bin/readlines.o bin/alloc.o
@@ -16,4 +16,4 @@ clean:
 	rm bin/*.o
 
 uninstall:
-	rm bin/sorttext
+	rm bin/sorttext.exe
