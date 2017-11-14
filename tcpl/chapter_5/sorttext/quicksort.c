@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+
 
 void  quicksort(void *v[], int left, int right, int (*comp)(void *, void *), int ascend){
     int i, last;
@@ -36,5 +38,12 @@ int numcmp(const char *s1, const char *s2){
                 return 1;
         else
                 return 0;
+}
+
+int nocasecmp(const char *s1, const char *s2){
+        for (; tolower(*s1) == tolower(*s2); s1++, s2++)
+                if (*s1 == '\0')
+                        return 0;
+        return *s1-*s2;
 }
 
