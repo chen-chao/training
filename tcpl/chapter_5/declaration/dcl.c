@@ -46,6 +46,20 @@ void dirdcl(void){
                 }
 }
 
+void checktoken(){
+        char *p, *t;
+        for (p=token+1; isdigit(*p); p++)
+                ;
+        for (t=p; *p == ' ' || *p == '\t'; p++)
+                ;
+        if (*p == ']'){
+                *t++ = *p;
+                *t = '\0';
+        } else {
+                printf("error: invalid token in brackets, %c\n", *p);
+        }
+}
+
 int gettoken(void){
         int c, getch(void);
         void ungetch(int);
@@ -54,7 +68,9 @@ int gettoken(void){
         while ((c = getch()) == ' ' || c == '\t')
                 ;
         if (c == '(') {
-                if ((c = getch()) == ')') {
+                while ((c = getch()) == ' ' || c == '\t')
+                        ;
+                if (c == ')') {
                         strcpy(token, "()");
                         return tokentype = PARENS;
                 } else {
@@ -62,9 +78,17 @@ int gettoken(void){
                         return tokentype = '(';
                 }
         } else if (c == '[') {
-                for (*p++ = c; (*p++ = getch()) != ']';)
+                *p++ = c;
+                while ((c = getch()) == ' ' || c == '\t')
                         ;
-                *p = '\0';
+                for (*p++ = c; (*p = getch()) != ']' && *p != EOF; p++)
+                        ;
+                if (*p == EOF){
+                        printf("error: missing ]\n");
+                        *p = '\0';
+                }
+                else
+                        checktoken();
                 return tokentype = BRACKETS;
         } else if (isalpha(c)) {
                 for (*p++ = c; isalnum(c = getch());)
