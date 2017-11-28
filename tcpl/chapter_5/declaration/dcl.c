@@ -15,6 +15,9 @@ char name[MAXTOKEN];
 char datatype[MAXTOKEN];
 char out[1000];
 
+int getch(void);
+void ungetch(int);
+
 void dcl(void){
         int ns;
 
@@ -27,16 +30,15 @@ void dcl(void){
 
 void dirdcl(void){
         int type;
-
         if (tokentype == '('){
                 dcl();
                 if (tokentype != ')')
                         printf("error: missing )\n");
-        } else if (tokentype == NAME)
+        } else if (tokentype == NAME){
                 strcpy(name, token);
-        else
+        } else
                 printf("error: expected name or (dcl)\n");
-        while ((type=gettoken()) == PARENS || type == BRACKETS)
+        while ((type=gettoken()) == PARENS || type == BRACKETS){
                 if (type == PARENS)
                         strcat(out, " function returning");
                 else {
@@ -44,6 +46,7 @@ void dirdcl(void){
                         strcat(out, token);
                         strcat(out, " of");
                 }
+        }
 }
 
 void checktoken(){
@@ -61,8 +64,7 @@ void checktoken(){
 }
 
 int gettoken(void){
-        int c, getch(void);
-        void ungetch(int);
+        int c;
         char *p = token;
 
         while ((c = getch()) == ' ' || c == '\t')
@@ -86,8 +88,7 @@ int gettoken(void){
                 if (*p == EOF){
                         printf("error: missing ]\n");
                         *p = '\0';
-                }
-                else
+                } else
                         checktoken();
                 return tokentype = BRACKETS;
         } else if (isalpha(c)) {
@@ -101,13 +102,19 @@ int gettoken(void){
 }
 
 int main(){
-        while (gettoken() != EOF){
-                strcpy(datatype, token);
+        char *p;
+        while (1){
+                for (p=datatype; (isalpha(*p=getch()) || *p == ' ') && *p != EOF; p++)
+                        ;
+                if (*p == EOF)
+                        return 0;
+                ungetch(*p);
+                *p = '\0';
                 out[0] = '\0';
                 dcl();
                 if (tokentype != '\n')
                         printf("syntax error\n");
-                printf("%s: %s %s\n", name, out, datatype);
+                printf("%s: %s %s\n ", name, out, datatype);
         }
         return 0;
 }
