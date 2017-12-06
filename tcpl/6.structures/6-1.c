@@ -3,7 +3,7 @@
 
 #define WORDLEN 100
 
-enum {WORD, STRING, COMMENT, PRE};
+enum {WORD, CHAR, STRING, COMMENT, PRE};
 
 int getword(char *word, int lim){
         int c, type, getch(void);
@@ -34,6 +34,19 @@ int getword(char *word, int lim){
                         *w++ = getch();
                         *w = '\0';
                         return c;
+                case '\'':
+                        if ((*w++ = c = getch()) == '\\'){
+                                *w++ = getch();
+                        } 
+                        if ((c = getch()) != '\''){
+                                printf("error: missing right \'.\n");
+                                ungetch(c);
+                                *w = '\0';
+                        } else {
+                                *w++ = c;
+                                *w = '\0';
+                        }
+                        return CHAR;
                 case '\"':
                         type = STRING;
                         break;
