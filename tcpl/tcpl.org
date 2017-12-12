@@ -1,0 +1,16 @@
+* TODO everyday exercise
+  SCHEDULED: <2017-12-11 Mon .+1d/2d>
+  :PROPERTIES:
+  :STYLE:    habit
+  :LAST_REPEAT: [2017-12-08 Fri 21:06]
+  :END:
+
+* chapter 5 exercise
+
+** TODO entab and detab: 12
+
+** TODO dcl: 18-20
+
+* TODO Eight queens puzzle
+
+
