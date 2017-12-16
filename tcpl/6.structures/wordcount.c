@@ -1,13 +1,5 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-
-int strneq(char *s, char *t, int n){
-        for (; --n>0 && *s == *t; s++, t++)
-                if (*s == '\0')
-                        return 1;
-        return n==0;
-}
 
 struct tnode {
         char *word;
