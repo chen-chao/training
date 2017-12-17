@@ -93,4 +93,5 @@ int main(int argc, char *argv[]){
     }
     group(p, out, n);
     printf("%s\n", out);
+    return 0;
 }
