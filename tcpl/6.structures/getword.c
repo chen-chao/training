@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define WORDLEN 100
-
 enum {WORD, CHAR, STRING, COMMENT, PRE};
 
 int getword(char *word, int lim){
