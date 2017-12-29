@@ -8,7 +8,7 @@ void copy_file(int fd, int dest) {
     int n;
     while ((n = read(fd, buf, BUFSIZ)) > 0) {
         if (write(dest, buf, n) != n) {
-            fprintf(stderr, "copy_file: Error on writing destination %d.\n", dest);
+            write(2, "copy_file: Error on writing.", 28);
         }
     }
 }
@@ -20,7 +20,8 @@ int main(int argc, char *argv[]) {
     } else {
         while (--argc > 0) {
             if ((fd = open(*++argv, O_RDONLY, 0)) == -1) {
-                fprintf(stderr, "Can not open file %s\n", *argv);
+                write(2, "Can not open file.", 17);
+                /* fprintf(stderr, "Can not open file %s\n", *argv); */
                 return 1;
             } else {
                 copy_file(fd, 1);
