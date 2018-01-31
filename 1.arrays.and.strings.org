@@ -1,7 +1,8 @@
 * Arrays and Strings
 
-- Implement an algorithm to determine if an array contains all unique
-  characters. What if you can not use additional data structures?
+** Problems
+
+*** Implement an algorithm to determine if an array contains all unique characters. What if you can not use additional data structures?
 
 Solution: Simply use an array to contains all unique letters. If a
 later character appears in the array, then return 0.
@@ -28,7 +29,7 @@ values to record the string like:
   
 However, these methods would cost more time than using the buffer array.
 
-- Write code to reverse C-style string.
+*** Write code to reverse C-style string.
 
 Solution: Walk through the string both from the beginning and the end.
 
@@ -46,10 +47,8 @@ Code:
   }
 #+END_SRC
  
-- Design an algorithm and write code to remove the duplicate
-  characters in a string without using any additional buffer. NOTE:
-  one or two additional variables are fine. An extra copy of the
-  string is not. FOLLOW UP: Write the test cases for this method.
+*** Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer. NOTE: one or two additional variables are fine. An extra copy of the string is not allowed.
+FOLLOW UP: Write the test cases for this method.
 
 Solution:
 
@@ -72,18 +71,16 @@ Code:
   }
 #+END_SRC
 
-- Write a method to decide if two strings are anagrams.
+*** Write a method to decide if two strings are anagrams.
 
 Solution: Iterate over the strings and put the hash values of the
 characters in the buffer arrays. Test if the buffer arrays are same.
 
-- Write a method to replace all spaces in a string with "%20".
+*** Write a method to replace all spaces in a string with "%20".
 
 Solution: Iterate over the string and replace all spaces.
 
-- Given an image represented by an N*N matrix, each pixel in the image
-  is 4 byte, write a method to rotate the image by 90 degrees. Can you
-  do this in place?
+*** Given an image represented by an N*N matrix, each pixel in the image is 4 byte, write a method to rotate the image by 90 degrees. Can you do this in place?
 
 Solution: Recusively rotate the matrix.
 
@@ -107,16 +104,12 @@ Code:
   }
 #+END_SRC
 
-- Write an algorithm such that if an element in a matrix M*N is 0, its
-  entire row and column is set to 0.
+*** Write an algorithm such that if an element in a matrix M*N is 0, its entire row and column is set to 0.
 
 Solution: Iterate over the matrix to decide which rows and columns to
 be set to 0. Then set them to 0.
 
-- Assume you have a method =isSubstring= which checks if one word is a
-  substring of another. Given two strings s1 and s2, write code to
-  check if s2 is a rotation of s1 using only one call to =isSubstring=
-  (i.e., "waterbottle" is a rotation of "erbottlewat").
+*** Assume you have a method =isSubstring= which checks if one word is a substring of another. Given two strings s1 and s2, write code to check if s2 is a rotation of s1 using only one call to =isSubstring= (i.e., "waterbottle" is a rotation of "erbottlewat").
   
 Solution: test if =s2= is a substring of =s1s1=.
 
