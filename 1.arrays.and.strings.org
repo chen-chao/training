@@ -47,10 +47,11 @@ Code:
   }
 #+END_SRC
  
-*** Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer. NOTE: one or two additional variables are fine. An extra copy of the string is not allowed.
+*** Design an algorithm and write code to remove the duplicate characters in a string without using any additional buffer.
+NOTE: one or two additional variables are fine. An extra copy of the string is not allowed.
 FOLLOW UP: Write the test cases for this method.
 
-Solution:
+Solution: Iterate over the string add check if each character appears in the buffer array.
 
 Code:
 #+BEGIN_SRC C
