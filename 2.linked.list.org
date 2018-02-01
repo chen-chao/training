@@ -1,22 +1,14 @@
 * Linked List
 
-** C version
-#+INCLUDE: "./linkedlist.c" src C
-
-** Python version
-   
-#+INCLUDE: "./linkedlist.py" src Python
-
-** Problems
-
-*** Write code to remove duplicates in an unsorted linked list.
-FOLLOW UP: How would you solve this problem if a temporary buffer is not
-  allowed?
+1. Write code to remove duplicates in an unsorted linked list. FOLLOW
+   UP: How would you solve this problem if a temporary buffer is not
+   allowed?
   
 Solution: Use a buffer array if the value is hashable. If a temporary
 buffer is not allowed, brute force comparison takes O(n^2) complexity.
 
-*** Implement an algorithm to find the nth element to last element of a singly linked list.
+2. Implement an algorithm to find the nth element to last element of a
+   singly linked list.
   
 Solution: Use the slow and fast pointers trick. Fast pointer moves n
 position ahead of the slow pointer. When the fast pointer reaches the
@@ -39,10 +31,10 @@ struct linkedList *getNthNodeToEnd(struct linkedList *head, int n) {
 }
 #+END_SRC
 
-*** Implement an algorithm to delete a node in the middle of a singly linked list, given only access to that node. 
-EXAMPLE: 
-Input: the node 'c' from the linked list: a->b->c->d->e
-Result: nothing is returned, but the new linked list looks like a->b->d->e
+3. Implement an algorithm to delete a node in the middle of a singly
+   linked list, given only access to that node. EXAMPLE: Input: the
+   node 'c' from the linked list: a->b->c->d->e Result: nothing is
+   returned, but the new linked list looks like a->b->d->e
 
 Solution: Replace the current node with the next node.
 
@@ -58,10 +50,12 @@ Code:
   }
 #+END_SRC
 
-*** You have two numbers represented by a linked list, where each node contains a single digit. The digits are stored in reverse order, such that the 1’s digit is at the head of the list. Write a function that adds the two numbers and returns the sum as a linked list.
-EXAMPLE
-Input: (3 -> 1 -> 5) + (5 -> 9 -> 2)
-Output: 8 -> 0 -> 8
+4. You have two numbers represented by a linked list, where each node
+   contains a single digit. The digits are stored in reverse order,
+   such that the 1’s digit is at the head of the list. Write a
+   function that adds the two numbers and returns the sum as a linked
+   list. EXAMPLE Input: (3 -> 1 -> 5) + (5 -> 9 -> 2) Output: 8 -> 0
+   -> 8
   
 Solution: Iterate over the list and sum the node values with carries.
 
@@ -84,14 +78,11 @@ Code:
 #+END_SRC
 
 
-*** Given a circular linked list, implement an algorithm which returns node at the beginning of the loop.
-DEFINITION
-Circular linked list: A (corrupt) linked list in which a node’s next
-pointer points to an earlier node, so as to make a loop in the
-linked list.
-EXAMPLE
-input: A -> B -> C -> D -> E -> C [the same C as earlier]
-output: C
+5. Given a circular linked list, implement an algorithm which returns
+   node at the beginning of the loop. DEFINITION Circular linked list:
+   A (corrupt) linked list in which a node’s next pointer points to an
+   earlier node, so as to make a loop in the linked list. EXAMPLE
+   input: A -> B -> C -> D -> E -> C [the same C as earlier] output: C
 
 Solution: Use slow and fast pointers trick. The fast pointer
 moves twice faster than the slow pointer. In a circular linked list,
