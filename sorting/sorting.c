@@ -1,5 +1,6 @@
 /* C implementation of shell sort */
 
+# include <stdio.h>
 
 void swap(int alist[], int i, int j) {
     int tmp;
@@ -123,13 +124,33 @@ void _merge(int alist[], int p, int mid, int q, int buffer[]) {
     }
 }
 
+void _fast_merge(int alist[], int p, int mid, int q, int buffer[]) {
+    /* Algorithms exercises 2.2.10, ctci 9.1 */
+    int i, j, k;
+    for (j = q, i = mid+1; j > mid; j--, i++) {
+        buffer[i] = alist[j];
+    }
+    i = mid;
+    j = mid + 1;
+    k = q;
+    while (i >= p && j <= q) {
+        if (alist[i] < buffer[j]) {
+            alist[k--] = buffer[j++];
+        } else {
+            alist[k--] = alist[i--];
+        }
+    }
+    for (; j <= q; j++) {
+        alist[k--] = buffer[j];
+    }
+}
 void _merge_sort(int alist[], int p, int q, int buffer[]) {
     if (p >= q)
         return;
     int mid = (p+q)/2;
     _merge_sort(alist, p, mid, buffer);
     _merge_sort(alist, mid+1, q, buffer);
-    _merge(alist, p, mid, q, buffer);
+    _fast_merge(alist, p, mid, q, buffer);
 }
 
 void merge_sort(int alist[], int n) {
