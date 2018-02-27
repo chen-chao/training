@@ -92,10 +92,10 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     public Comparator<Point> slopeOrder() {
-        return new sortBySlope();
+        return new SortBySlope();
     }
 
-    private class sortBySlope implements Comparator<Point> {
+    private class SortBySlope implements Comparator<Point> {
         private boolean equalSlope(double slope1, double slope2) {
             return ((slope1 == Double.POSITIVE_INFINITY && slope2 == Double.POSITIVE_INFINITY) 
                     || slope1 == slope2);
@@ -137,13 +137,13 @@ public class Point implements Comparable<Point> {
         assert points[0].slopeTo(points[5]) == Double.NEGATIVE_INFINITY;
         assert points[0].slopeTo(points[3]) == Double.POSITIVE_INFINITY;
         assert points[0].slopeTo(points[4]) == +0.0;
-        assert points[0].compareTo(points[1]) == -1;
-        assert points[0].compareTo(points[2]) == -1;
-        assert points[0].compareTo(points[4]) == 1;
+        assert points[0].compareTo(points[1]) < 0;
+        assert points[0].compareTo(points[2]) < 0;
+        assert points[0].compareTo(points[4]) > 0;
         assert points[0].compareTo(points[5]) == 0;
         Comparator<Point> c = points[0].slopeOrder();
         assert c.compare(points[1], points[2]) == 0;
-        assert c.compare(points[1], points[3]) == -1;
-        assert c.compare(points[4], points[5]) == 1;
+        assert c.compare(points[1], points[3]) < 0;
+        assert c.compare(points[4], points[5]) > 0;
     }
 }

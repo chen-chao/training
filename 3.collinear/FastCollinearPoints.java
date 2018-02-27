@@ -18,7 +18,7 @@ public class FastCollinearPoints {
         // }
 
         int count, pmin, pmax;
-        Double slope1, slope2;
+        double slope1, slope2;
         Stack<LineSegment> segStack = new Stack<LineSegment>();
 
         Point[] pclone = points.clone();
@@ -35,15 +35,15 @@ public class FastCollinearPoints {
             assert pclone[0].compareTo(points[i]) == 0;
             count = 1;
             slope1 = Double.NEGATIVE_INFINITY;
-            for (int j = 1; j < length; j++) {
-                slope2 = points[i].slopeTo(pclone[j]);
+            for (int j = 1; j <= length; j++) {
+                slope2 = (j == length ? Double.NEGATIVE_INFINITY : points[i].slopeTo(pclone[j]));
                 // StdOut.printf("s1: %f, s2: %f, count: %d, size: %d\n", slope1, slope2, count, size);
 
                 if (equalSlope(slope1, slope2)) { 
                     count++;
-                    if (j < length - 1) continue;
-                    else j++;
+                    continue;
                 }
+
                 if (count >= 3) {
                     // how to deal with the subsegments of 5 or more line?
                     pmin = min(pclone, 0, j-count, j-1);
@@ -73,7 +73,7 @@ public class FastCollinearPoints {
     private int min(Point[] points, int i, int lo, int hi) {
         int pmin = i;
         for (int j = lo; j <= hi; j++) {
-            if (points[pmin].compareTo(points[j]) == 1) { pmin = j; }
+            if (points[pmin].compareTo(points[j]) > 0) { pmin = j; }
         }
         return pmin;
     }
@@ -81,13 +81,12 @@ public class FastCollinearPoints {
     private int max(Point[] points, int i, int lo, int hi) {
         int pmax = i;
         for (int j = lo; j <= hi; j++) {
-            if (points[pmax].compareTo(points[j]) == -1) { pmax = j; }
+            if (points[pmax].compareTo(points[j]) < 0) { pmax = j; }
         }
         return pmax;
     }
 
     private void stackToSeg(Stack<LineSegment> segStack) {
-        if (size == 0) { return; }
         segs = new LineSegment[size];
         for (int i = 0; i < size; i++) {
             segs[i] = segStack.pop();
@@ -95,6 +94,8 @@ public class FastCollinearPoints {
     }
 
     private void validatePoints(Point[] points) {
+        if (points == null) { throw new java.lang.IllegalArgumentException(); }
+
         for (int i = 0; i < points.length; i++) {
             if (points[i] == null) { throw new java.lang.IllegalArgumentException(); }
         }
@@ -110,7 +111,7 @@ public class FastCollinearPoints {
     public int numberOfSegments() { return size; }
 
     public LineSegment[] segments() {
-        return size == 0 ? null : segs;
+        return segs.clone();
     }
 
     public static void main(String[] args) {
