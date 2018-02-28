@@ -21,6 +21,12 @@ public class FastCollinearPoints {
         double slope1, slope2;
         Stack<LineSegment> segStack = new Stack<LineSegment>();
 
+        // clone always makes a shallow copy of the original array. However, if the original array is
+        // one dimensional(two dimensional array is an array of pointers) and only consists of
+        // elements of primitive type or objects that only have primitive types as their members, 
+        // clone makes a deep copy. In other words, clone makes a deep copy of the original elements in the array, 
+        // no matter what the array is like (since all arrays are 1 dimensional array stored in memory).
+
         Point[] pclone = points.clone();
 
         for (int i = 0; i < length; i++) {
