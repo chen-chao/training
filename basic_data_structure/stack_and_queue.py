@@ -24,32 +24,28 @@ class stack:
     def is_empty(self):
         return self.top is None
 
-class binode:
-    def __init__(self, value, prev = None, next = None):
-        self.prev = prev
-        self.next = next
-        self.value = value
-    
+
 class queue:
     def __init__(self):
         self.head= None
         self.tail= None
 
     def push(self, value):
-        prev_head = self.head
-        self.head = binode(value, self.head)
-        if prev_head is not None:
-            prev_head.next = self.head
-        if self.tail is None:
-            self.tail = self.head
+        tail = node(value)
+        if self.tail:
+            self.tail.next = tail
+            self.tail = tail
+        else:
+            self.tail = tail
+            self.head = tail
 
     def pop(self):
-        if self.tail is None:
+        if self.head is None:
             raise ValueError("Empty queue!")
-        value = self.tail.value
-        self.tail = self.tail.next
-        if self.tail is None:
-            self.head = None
+        value = self.head.value
+        self.head = self.head.next
+        if self.head is None:
+            self.tail = None
         return value
 
     def peek(self):
