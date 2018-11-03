@@ -3,8 +3,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 
 public class Outcast {
-    private WordNet wordnet;
-    private static final int INFINITY = Integer.MAX_VALUE;
+    private final WordNet wordnet;
 
     public Outcast(WordNet wordnet) {
         this.wordnet = wordnet;

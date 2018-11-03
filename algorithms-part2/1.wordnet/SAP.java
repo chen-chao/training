@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
@@ -9,9 +10,11 @@ import java.lang.Math;
 public class SAP{
     private Digraph graph;
     private static final int INFINITY = Integer.MAX_VALUE;
-    private static final int NOT_VISITED = -1;
-    private int[] distToV, distToW;
+    private SeparateChainingHashST<Integer, Integer> distToV, distToW;
     private int min_dist, parent;
+
+    private int cachedv, cachedw;
+    private Iterable<Integer> cachedIterV, cachedIterW;
 
     public SAP(Digraph G) {
         graph = new Digraph(G.V());
@@ -20,27 +23,28 @@ public class SAP{
                 graph.addEdge(i, v);
             }
         }
-        distToV = new int[G.V()];
-        distToW = new int[G.V()];
+        distToV = new SeparateChainingHashST<Integer, Integer>();
+        distToW = new SeparateChainingHashST<Integer, Integer>();
     }
 
-    private void validateVertex(int v) {
-        if (v < 0 || v >= graph.V()) {
+    private void validateVertex(Integer v) {
+        if (v == null || v < 0 || v >= graph.V()) {
             throw new java.lang.IllegalArgumentException("invalid vertex");
         }
     }
 
     private void validateVertices(Iterable<Integer> v) {
-        for (int vv: v) {
+        if (v == null) {
+            throw new java.lang.IllegalArgumentException("invalid vertices");
+        }
+        for (Integer vv: v) {
             validateVertex(vv);
         }
     }
 
     private void clean() {
-        for (int i = 0; i < graph.V(); i++) {
-            distToV[i] = NOT_VISITED;
-            distToW[i] = NOT_VISITED;
-        }
+        distToV = new SeparateChainingHashST<Integer, Integer>();
+        distToW = new SeparateChainingHashST<Integer, Integer>();
         min_dist = INFINITY;
         parent = -1;
     }
@@ -49,20 +53,21 @@ public class SAP{
         if (!q.isEmpty()) {
             int v = q.dequeue();
             // StdOut.printf("-- v: %d, distToV: %d\n", v, distToV[v]);
-            if (distToV[v] >= min_dist) {
+            if (distToV.get(v) >= min_dist) {
                 return false;
             }
-            if (distToW[v] != NOT_VISITED) {
-                int dist = distToV[v] + distToW[v];
+            if (distToW.contains(v)) {
+                int dist = distToV.get(v) + distToW.get(v);
                 if (dist < min_dist) {
                     min_dist = dist;
                     parent = v;
                 }
             }
+            int next_step = distToV.get(v) + 1;
             for (int vv: graph.adj(v)) {
-                if (distToV[vv] == NOT_VISITED) {
+                if (!distToV.contains(vv)) {
                     // StdOut.printf("-- v adj: %d\n", vv);
-                    distToV[vv] = distToV[v] + 1;
+                    distToV.put(vv,  next_step);
                     q.enqueue(vv);
                 }
             }
@@ -76,20 +81,21 @@ public class SAP{
         if (!q.isEmpty()) {
             int w = q.dequeue();
             // StdOut.printf("---- w: %d, distToW: %d\n", w, distToW[w]);
-            if (distToW[w] >= min_dist) {
+            if (distToW.get(w) >= min_dist) {
                 return false;
             }
-            if (distToV[w] != NOT_VISITED) {
-                int dist = distToV[w] + distToW[w];
+            if (distToV.contains(w)) {
+                int dist = distToV.get(w) + distToW.get(w);
                 if (dist < min_dist) {
                     min_dist = dist;
                     parent = w;
                 }
             }
+            int next_step = distToW.get(w) + 1;
             for (int ww: graph.adj(w)) {
-                if (distToW[ww] == NOT_VISITED) {
+                if (!distToW.contains(ww)) {
                     // StdOut.printf("---- w adj: %d\n", ww);
-                    distToW[ww] = distToW[w] + 1;
+                    distToW.put(ww, next_step);
                     q.enqueue(ww);
                 }
             }
@@ -100,15 +106,13 @@ public class SAP{
     }
 
     private void bfs(int v, int w) {
-        validateVertex(v);
-        validateVertex(w);
         clean();
         Queue<Integer> qv = new Queue<Integer>();
         qv.enqueue(v);
-        distToV[v] = 0;
+        distToV.put(v, 0);
         Queue<Integer> qw = new Queue<Integer>();
         qw.enqueue(w);
-        distToW[w] = 0;
+        distToW.put(w, 0);
 
         while (vstep(qv) && wstep(qw)) {}
         while (vstep(qv)) {}
@@ -116,43 +120,73 @@ public class SAP{
     }
 
     private void bfs(Iterable<Integer> v, Iterable<Integer> w) {
-        validateVertices(v);
-        validateVertices(w);
         clean();
         Queue<Integer> qv = new Queue<Integer>();
         for (int vv: v) {
             qv.enqueue(vv);
-            distToV[vv] = 0;
+            distToV.put(vv, 0);
         }
 
         Queue<Integer> qw = new Queue<Integer>();
         for (int ww: w) {
             qw.enqueue(ww);
-            distToW[ww] = 0;
+            distToW.put(ww, 0);
         }
 
         while (vstep(qv) && wstep(qw)) {}
         while (vstep(qv)) {}
         while (wstep(qw)) {}
-   }
+    }
+
+    private boolean inCache(int v, int w) {
+        return cachedv == v && cachedw == w;
+    }
+
+    private boolean inCache(Iterable<Integer> v, Iterable<Integer> w) {
+        return cachedIterV == v && cachedIterW == w;
+    }
 
     public int length(int v, int w) {
-        bfs(v, w);
+        validateVertices(v);
+        validateVertices(w);
+        if (!inCache(v, w)) {
+            bfs(v, w);
+            cachedv = v;
+            cachedw = w;
+        }
         return min_dist == INFINITY ? -1: min_dist;
     }
 
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
-        bfs(v, w);
+        validateVertices(v);
+        validateVertices(w);
+        if (!inCache(v, w)) {
+            bfs(v, w);
+            cachedIterV = v;
+            cachedIterW = w;
+        }
         return min_dist == INFINITY ? -1: min_dist;
     }
 
     public int ancestor(int v, int w) {
-        bfs(v, w);
+        validateVertex(v);
+        validateVertex(w);
+        if (!inCache(v, w)) {
+            bfs(v, w);
+            cachedv = v;
+            cachedw = w;
+        }
         return parent;
     }
 
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
-        bfs(v, w);
+        validateVertex(v);
+        validateVertex(w);
+        if (!inCache(v, w)) {
+            bfs(v, w);
+            cachedIterV = v;
+            cachedIterW = w;
+        }
         return parent;
     }
 

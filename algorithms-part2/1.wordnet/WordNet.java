@@ -1,15 +1,16 @@
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.ST;
 import edu.princeton.cs.algs4.Bag;
+import edu.princeton.cs.algs4.DirectedCycle;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 
 public class WordNet {
-    private ST<String, Bag<Integer>> words;
-    private ST<Integer, String> table;
-    private SAP sap;
+    private final ST<String, Bag<Integer>> words;
+    private final ST<Integer, String> table;
+    private final SAP sap;
 
     public WordNet(String synsets, String hypernyms) {
         if (synsets==null || hypernyms==null)
@@ -26,7 +27,7 @@ public class WordNet {
             String[] wordlist = parts[1].split(" ");
             int id = Integer.parseInt(parts[0]);
 
-            table.put(id, wordlist[0]);
+            table.put(id, parts[1]);
             for (String w: wordlist) {
                 if (words.contains(w)) {
                     words.get(w).add(id);
@@ -51,6 +52,23 @@ public class WordNet {
             }
         }
         in.close();
+
+        // check whether the digraph is a dag
+        DirectedCycle cycle = new DirectedCycle(graph);
+        if (cycle.hasCycle()) {
+            throw new java.lang.IllegalArgumentException("hypernyms is not a dag");
+        }
+
+        // check two roots
+        int count = 0;
+        for (int i = 0; i < graph.V(); i++) {
+            if (graph.outdegree(i) == 0) {
+                count++;
+                if (count > 1) {
+                    throw new java.lang.IllegalArgumentException("hypernyms has multiple roots");
+                }
+            }
+        }
 
         sap = new SAP(graph);
     }
