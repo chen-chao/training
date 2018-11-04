@@ -13,9 +13,6 @@ public class SAP{
     private SeparateChainingHashST<Integer, Integer> distToV, distToW;
     private int min_dist, parent;
 
-    private int cachedv, cachedw;
-    private Iterable<Integer> cachedIterV, cachedIterW;
-
     public SAP(Digraph G) {
         graph = new Digraph(G.V());
         for (int i=0; i<G.V(); i++) {
@@ -43,8 +40,12 @@ public class SAP{
     }
 
     private void clean() {
-        distToV = new SeparateChainingHashST<Integer, Integer>();
-        distToW = new SeparateChainingHashST<Integer, Integer>();
+        for (int key: distToV.keys()) {
+            distToV.delete(key);
+        }
+        for (int key: distToW.keys()) {
+            distToW.delete(key);
+        }
         min_dist = INFINITY;
         parent = -1;
     }
@@ -133,60 +134,40 @@ public class SAP{
             distToW.put(ww, 0);
         }
 
+        if (qv.isEmpty() || qw.isEmpty()) {
+            return;
+        }
+
         while (vstep(qv) && wstep(qw)) {}
         while (vstep(qv)) {}
         while (wstep(qw)) {}
     }
 
-    private boolean inCache(int v, int w) {
-        return cachedv == v && cachedw == w;
-    }
-
-    private boolean inCache(Iterable<Integer> v, Iterable<Integer> w) {
-        return cachedIterV == v && cachedIterW == w;
-    }
-
     public int length(int v, int w) {
-        validateVertices(v);
-        validateVertices(w);
-        if (!inCache(v, w)) {
-            bfs(v, w);
-            cachedv = v;
-            cachedw = w;
-        }
+        validateVertex(v);
+        validateVertex(w);
+        bfs(v, w);
         return min_dist == INFINITY ? -1: min_dist;
     }
 
     public int length(Iterable<Integer> v, Iterable<Integer> w) {
         validateVertices(v);
         validateVertices(w);
-        if (!inCache(v, w)) {
-            bfs(v, w);
-            cachedIterV = v;
-            cachedIterW = w;
-        }
+        bfs(v, w);
         return min_dist == INFINITY ? -1: min_dist;
     }
 
     public int ancestor(int v, int w) {
         validateVertex(v);
         validateVertex(w);
-        if (!inCache(v, w)) {
-            bfs(v, w);
-            cachedv = v;
-            cachedw = w;
-        }
+        bfs(v, w);
         return parent;
     }
 
     public int ancestor(Iterable<Integer> v, Iterable<Integer> w) {
-        validateVertex(v);
-        validateVertex(w);
-        if (!inCache(v, w)) {
-            bfs(v, w);
-            cachedIterV = v;
-            cachedIterW = w;
-        }
+        validateVertices(v);
+        validateVertices(w);
+        bfs(v, w);
         return parent;
     }
 

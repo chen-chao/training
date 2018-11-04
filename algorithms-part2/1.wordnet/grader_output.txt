@@ -1,28 +1,26 @@
-See the Assessment Guide for information on how to interpret this report.
-
 ASSESSMENT SUMMARY
 
 Compilation:  PASSED
 API:          PASSED
 
 Spotbugs:     PASSED
-PMD:          FAILED (7 warnings)
+PMD:          FAILED (9 warnings)
 Checkstyle:   FAILED (0 errors, 37 warnings)
 
-Correctness:  34/36 tests passed
+Correctness:  36/36 tests passed
 Memory:       4/4 tests passed
-Timing:       33/27 tests passed
+Timing:       30/27 tests passed
 
-Aggregate score: 101.11%
+Aggregate score: 102.22%
 [Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-1.3K Nov  3 14:05 Outcast.java
-5.8K Nov  3 14:05 SAP.java
-3.7K Nov  3 14:05 WordNet.java
+1.3K Nov  4 01:38 Outcast.java
+5.3K Nov  4 01:38 SAP.java
+3.7K Nov  4 01:38 WordNet.java
 
 
 ********************************************************************************
@@ -69,13 +67,15 @@ Outcast:
 % pmd .
 *-----------------------------------------------------------
 SAP.java:11: The private instance (or static) variable 'graph' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+SAP.java:13: The private instance (or static) variable 'distToV' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+SAP.java:13: The private instance (or static) variable 'distToW' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+SAP.java:118: Avoid empty while statements [EmptyWhileStmt]
 SAP.java:119: Avoid empty while statements [EmptyWhileStmt]
 SAP.java:120: Avoid empty while statements [EmptyWhileStmt]
-SAP.java:121: Avoid empty while statements [EmptyWhileStmt]
-SAP.java:140: Avoid empty while statements [EmptyWhileStmt]
 SAP.java:141: Avoid empty while statements [EmptyWhileStmt]
 SAP.java:142: Avoid empty while statements [EmptyWhileStmt]
-PMD ends with 7 warnings.
+SAP.java:143: Avoid empty while statements [EmptyWhileStmt]
+PMD ends with 9 warnings.
 
 
 ================================================================
@@ -90,28 +90,28 @@ PMD ends with 7 warnings.
 [WARN] SAP.java:10:17: '{' is not preceded with whitespace. [WhitespaceAround]
 [WARN] SAP.java:12:5: Declare static variables before instance variables, constructors, and methods. [DeclarationOrder]
 [WARN] SAP.java:14:17: The instance variable 'min_dist' must start with a lowercase letter and use camelCase. [MemberName]
-[WARN] SAP.java:21:19: '=' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:21:20: '=' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:21:24: '<' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:21:25: '<' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:30:33: Use the primitive type instead of the corresponding wrapper type 'Integer'. For example, use 'boolean' instead of 'Boolean'. [Wrapper]
-[WARN] SAP.java:40:14: Use the primitive type instead of the corresponding wrapper type 'Integer'. For example, use 'boolean' instead of 'Boolean'. [Wrapper]
-[WARN] SAP.java:66:17: The local variable 'next_step' must start with a lowercase letter and use camelCase. [LocalVariableName]
-[WARN] SAP.java:94:17: The local variable 'next_step' must start with a lowercase letter and use camelCase. [LocalVariableName]
-[WARN] SAP.java:119:41: '{' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:119:41: '}' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:18:19: '=' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:18:20: '=' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:18:24: '<' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:18:25: '<' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:27:33: Use the primitive type instead of the corresponding wrapper type 'Integer'. For example, use 'boolean' instead of 'Boolean'. [Wrapper]
+[WARN] SAP.java:37:14: Use the primitive type instead of the corresponding wrapper type 'Integer'. For example, use 'boolean' instead of 'Boolean'. [Wrapper]
+[WARN] SAP.java:67:17: The local variable 'next_step' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] SAP.java:95:17: The local variable 'next_step' must start with a lowercase letter and use camelCase. [LocalVariableName]
+[WARN] SAP.java:118:41: '{' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:118:41: '}' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:119:28: '{' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:119:28: '}' is not preceded with whitespace. [WhitespaceAround]
 [WARN] SAP.java:120:28: '{' is not followed by whitespace. [WhitespaceAround]
 [WARN] SAP.java:120:28: '}' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:121:28: '{' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:121:28: '}' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:140:41: '{' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:140:41: '}' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:141:28: '{' is not followed by whitespace. [WhitespaceAround]
-[WARN] SAP.java:141:28: '}' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:141:41: '{' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:141:41: '}' is not preceded with whitespace. [WhitespaceAround]
 [WARN] SAP.java:142:28: '{' is not followed by whitespace. [WhitespaceAround]
 [WARN] SAP.java:142:28: '}' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:159:41: ':' is not preceded with whitespace. [WhitespaceAround]
-[WARN] SAP.java:168:41: ':' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:143:28: '{' is not followed by whitespace. [WhitespaceAround]
+[WARN] SAP.java:143:28: '}' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:150:41: ':' is not preceded with whitespace. [WhitespaceAround]
+[WARN] SAP.java:157:41: ':' is not preceded with whitespace. [WhitespaceAround]
 [WARN] WordNet.java:16:20: '==' is not preceded with whitespace. [WhitespaceAround]
 [WARN] WordNet.java:16:22: '==' is not followed by whitespace. [WhitespaceAround]
 [WARN] WordNet.java:16:39: '==' is not preceded with whitespace. [WhitespaceAround]
@@ -274,43 +274,24 @@ Test 19: check iterable versions of length() and ancestor() with invalid argumen
   * G = digraph1.txt, v = { 0, 9, 10, 11 }, w = null
   * G = digraph1.txt, v = null, w = { 2, 3, 4, 6, 12 }
   * G = digraph1.txt, v = null, w = null
-    - fails to throw an exception when calling length() with invalid argument
-
-    - fails to throw an exception when calling ancestor() with invalid argument
-
   * G = digraph1.txt, v = { 0, 9, 10, -1, 11 }, w = { 2, 3, 4, 6, 12 }
   * G = digraph1.txt, v = { 0, 9, 10, 11 }, w = { 2, 3, 4, -1, 6, 12 }
   * G = digraph1.txt, v = { 0, 9, 10, 11, 13 }, w = { 2, 3, 4, 6, 12 }
   * G = digraph1.txt, v = { 0, 9, 10, 11 }, w = { 2, 13, 3, 4, 6, 12 }
   * G = digraph1.txt, v = { null, 0, 9, 10, 11 }, w = { 2, 3, 4, 6, 12 }
   * G = digraph1.txt, v = { 0, 9, 10, 11 }, w = { 2, 3, 4, 6, null, 12 }
-==> FAILED
+==> passed
 
 Test 20: random calls to both version of length() and ancestor(),
          with probabilities p1 and p2, respectively
   * random calls in a random rooted DAG (20 vertices, 100 edges)
     (p1 = 0.5, p2 = 0.5)
-    - failed on call 37 to length()
-    - v                  = 3
-    - w                  = 4
-    - student   length() = 0
-    - reference length() = 1
-
   * random calls in a random digraph (20 vertices, 100 edges)
     (p1 = 0.5, p2 = 0.5)
-    - ancestor() is not ancestor on shortest ancestral path
-    - failed on call 100 to ancestor()
-    - v = 11, w = 10
-    - student   ancestor = 8
-    - distance from 11 to 8 = 2
-    - distance from 10 to 8 = 3
-    - reference ancestor = 11
-    - reference length   = 1
-
-==> FAILED
+==> passed
 
 
-Total: 18/20 tests passed!
+Total: 20/20 tests passed!
 
 
 ================================================================
@@ -487,7 +468,7 @@ Running 1 total tests.
 digraph G             = digraph-wordnet.txt
 vertices in G         = 82192
 edges    in G         = 84505
-student     memory    = 8348424 bytes
+student     memory    = 8348400 bytes
 reference   memory    = 10320360 bytes
 ratio                 = 0.81
 maximum allowed ratio = 2.50
@@ -506,7 +487,7 @@ Test 1a: check memory of WordNet object
   * synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
     - number of vertices in digraph = 1000
     - number of edges    in digraph = 1008
-    - student   memory              = 626408 bytes
+    - student   memory              = 626384 bytes
     - reference memory              = 1494080 bytes
     - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
@@ -517,7 +498,7 @@ Test 1b: check memory of WordNet object
   * synsets = synsets5000-subgraph.txt; hypernyms = hypernyms5000-subgraph.txt
     - number of vertices in digraph = 5000
     - number of edges    in digraph = 5059
-    - student   memory              = 3114592 bytes
+    - student   memory              = 3114568 bytes
     - reference memory              = 7295984 bytes
     - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
@@ -528,7 +509,7 @@ Test 1c: check memory of WordNet object
   * synsets = synsets10000-subgraph.txt; hypernyms = hypernyms10000-subgraph.txt
     - number of vertices in digraph = 10000
     - number of edges    in digraph = 10087
-    - student   memory              = 7458424 bytes
+    - student   memory              = 7458400 bytes
     - reference memory              = 16932944 bytes
     - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
@@ -551,15 +532,15 @@ Running 14 total tests.
 
 Test 1: time SAP constructor
    *  digraph-wordnet.txt
-      -  student solution time =  0.03 seconds
+      -  student solution time =  0.02 seconds
       -  maximum allowed  time =  1.00 seconds
 ==> passed
 
 Test 2a-c: time length() and ancestor() with random pairs of vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second:  428000.00
-     -  student   solution calls per second:  390706.00
-     -  reference / student ratio:                 1.10
+     -  reference solution calls per second:  459480.00
+     -  student   solution calls per second:  212438.00
+     -  reference / student ratio:                 2.16
 
 => passed      student <= 50000x reference
 => passed      student <= 10000x reference
@@ -567,44 +548,42 @@ Test 2a-c: time length() and ancestor() with random pairs of vertices
 => passed      student <=  1000x reference
 => BONUS       student <=   100x reference
 => BONUS       student <=    10x reference
-=> BONUS       student <=     2x reference
 
 Test 3a-c: time length() and ancestor() with random subsets of 5 vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second:  162870.00
-     -  student   solution calls per second:   98435.00
-     -  reference / student ratio:                 1.65
+     -  reference solution calls per second:  158380.00
+     -  student   solution calls per second:   52033.00
+     -  reference / student ratio:                 3.04
 
 => passed      student <= 10000x reference
 => passed      student <=  5000x reference
 => passed      student <=  1000x reference
 => passed      student <=   500x reference
 => BONUS       student <=    10x reference
-=> BONUS       student <=     2x reference
 
 Test 4a-c: time length() and ancestor() with random subsets of 100 vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second:   10410.00
-     -  student   solution calls per second:    9894.00
-     -  reference / student ratio:                 1.05
+     -  reference solution calls per second:   11430.00
+     -  student   solution calls per second:    4888.00
+     -  reference / student ratio:                 2.34
 
 => passed      student <= 10000x reference
 => passed      student <=  5000x reference
 => passed      student <=  1000x reference
 => passed      student <=   500x reference
-=> BONUS       student <=     2x reference
 
 Test 5: Time 10 calls to length() and ancestor() on random path graphs
         (must handle V = 65536 in under 2 seconds)
 
              V  seconds
         ---------------
-         32768     0.09
-         65536     0.21
+         16384     0.13
+         32768     0.28
+         65536     0.38
 ==> passed
 
 
-Total: 20/14 tests passed!
+Total: 17/14 tests passed!
 
 
 ================================================================
@@ -650,7 +629,7 @@ Test 4: count Digraph operations during 1000 calls each
   * synsets = synsets.txt; hypernyms = hypernyms.txt
   * calls to constructor = 0
   * calls to addEdge()   = 0
-  * calls to adj()       = 45250
+  * calls to adj()       = 46408
   * calls to reverse()   = 0
   * calls to toString()  = 0
 
@@ -658,16 +637,16 @@ Test 4: count Digraph operations during 1000 calls each
 
 Test 5: time WordNet constructor
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - student constructor time =  0.46 seconds
+    - student constructor time =  0.49 seconds
     - maximum allowed     time = 10.00 seconds
 
 ==> passed
 
 Test 6a-e: time sap() and distance() with random nouns
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - reference solution calls per second:  178801.00
-    - student   solution calls per second:  101874.25
-    - reference / student ratio:                 1.76
+    - reference solution calls per second:  171604.75
+    - student   solution calls per second:  112420.00
+    - reference / student ratio:                 1.53
 
 => passed    student <= 10000x reference
 => passed    student <=  1000x reference
@@ -677,9 +656,9 @@ Test 6a-e: time sap() and distance() with random nouns
 
 Test 7: time isNoun() with random nouns
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - reference solution calls per second:  431688.00
-    - student   solution calls per second:  303564.00
-    - reference / student ratio:                 1.42
+    - reference solution calls per second:  430330.00
+    - student   solution calls per second:  338521.00
+    - reference / student ratio:                 1.27
     - allowed ratio:                             4.00
 ==> passed
 
