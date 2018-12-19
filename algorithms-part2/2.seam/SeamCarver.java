@@ -1,8 +1,5 @@
-import java.lang.Math;
-import java.awt.Color;
 import edu.princeton.cs.algs4.Picture;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.Digraph;
 
 
 public class SeamCarver {
@@ -43,7 +40,7 @@ public class SeamCarver {
     }
 
     private boolean onBoundary(int col, int row) {
-        return row==0 || row==h-1 || col==0 || col==w-1;
+        return row == 0 || row == h-1 || col == 0 || col == w-1;
     }
 
     private double calEnergy(int col, int row) {
@@ -123,17 +120,17 @@ public class SeamCarver {
         }
 
         for (int col = 1; col < width(); col++) {
-            double archivedDist = Double.POSITIVE_INFINITY;
-            for (int row = 0; row < height()-1; row++) {
+            double firstDist = Double.POSITIVE_INFINITY;
+            double endDist = Double.POSITIVE_INFINITY;
+            for (int row = 0; row < height(); row++) {
                 // ugly, need an auxiliary array?
-                int ind = argmin(archivedDist, distTo[row], distTo[row+1]);
-                double value = (ind == 0) ? archivedDist : (ind == 1) ? distTo[row] : distTo[row+1];
+                double third = row+1 < height() ? distTo[row+1] : endDist;
+                int ind = argmin(firstDist, distTo[row], third);
+                double value = (ind == 0) ? firstDist : (ind == 1) ? distTo[row] : third;
                 edgeTo[row][col-1] = row-1+ind;
-                archivedDist = distTo[row];
+                firstDist = distTo[row];
                 distTo[row] = value + energy(col, row);
             }
-            edgeTo[height()-1][col-1] = height() - 2;
-            distTo[height()-1] += archivedDist;
         }
 
         int minIndex = argmin(distTo);
@@ -155,16 +152,16 @@ public class SeamCarver {
         }
 
         for (int row = 1; row < height(); row++) {
-            double archivedDist = Double.POSITIVE_INFINITY;
-            for (int col = 0; col < width()-1; col++) {
-                int ind = argmin(archivedDist, distTo[col], distTo[col+1]);
-                double value = (ind == 0) ? archivedDist : (ind == 1) ? distTo[col] : distTo[col+1];
+            double firstDist = Double.POSITIVE_INFINITY;
+            double endDist = Double.POSITIVE_INFINITY;
+            for (int col = 0; col < width(); col++) {
+                double third = col+1 < width() ? distTo[col+1] : endDist;
+                int ind = argmin(firstDist, distTo[col], third);
+                double value = (ind == 0) ? firstDist : (ind == 1) ? distTo[col] : third;
                 edgeTo[row-1][col] = col-1+ind;
-                archivedDist = distTo[col];
+                firstDist = distTo[col];
                 distTo[col] = value + energy(col, row);
             }
-            edgeTo[row-1][width()-1] = width() - 2;
-            distTo[width()-1] += archivedDist;
             // testing begins
             // for (int col = 0; col < width(); col++) {
             //     StdOut.printf("%9.2f ", distTo[col]);
@@ -185,7 +182,7 @@ public class SeamCarver {
     }
 
     private void validateHorizontalSeam(int[] seam) {
-        if (seam == null || seam.length != width() || w <= 1) {
+        if (seam == null || seam.length != width() || height() <= 1) {
             throw new java.lang.IllegalArgumentException("invalid horizontal seam");
         }
 
@@ -195,7 +192,7 @@ public class SeamCarver {
     }
 
     private void validateVerticalSeam(int[] seam) {
-        if (seam == null || seam.length != height() || h <= 1) {
+        if (seam == null || seam.length != height() || width() <= 1) {
             throw new java.lang.IllegalArgumentException("invalid vertical seam");
         }
 
@@ -206,7 +203,7 @@ public class SeamCarver {
 
     public void removeHorizontalSeam(int[] seam) {
         validateHorizontalSeam(seam);
-        for (int col = 1; col < width()-1; col++) {
+        for (int col = 0; col < width(); col++) {
             for (int row = seam[col]; row < height()-1; row++) {
                 colors[row][col] = colors[row+1][col];
                 energyMatrix[row][col] = energyMatrix[row+1][col];
@@ -216,14 +213,18 @@ public class SeamCarver {
         // update energy matrix
         for (int col = 1; col < width()-1; col++) {
             int row = seam[col];
-            energyMatrix[row-1][col] = calEnergy(col, row-1);
-            energyMatrix[row][col] = calEnergy(col, row);
+            if (row >= 1) {
+                energyMatrix[row-1][col] = calEnergy(col, row-1);
+            }
+            if (row <= h-1) {
+                energyMatrix[row][col] = calEnergy(col, row);
+            }
         }
     }
 
     public void removeVerticalSeam(int[] seam) {
         validateVerticalSeam(seam);
-        for (int row = 1; row < height()-1; row++) {
+        for (int row = 0; row < height(); row++) {
             int col = seam[row];
             System.arraycopy(colors[row], col+1, colors[row], col, w-col-1);
             System.arraycopy(energyMatrix[row], col+1, energyMatrix[row], col, w-col-1);
@@ -233,8 +234,12 @@ public class SeamCarver {
         // the boundary will never be a seam
         for (int row = 1; row < height()-1; row++) {
             int col = seam[row];
-            energyMatrix[row][col-1] = calEnergy(col-1, row);
-            energyMatrix[row][col] = calEnergy(col, row);
+            if (col >= 1) {
+                energyMatrix[row][col-1] = calEnergy(col-1, row);
+            }
+            if (col <= w-1) {
+                energyMatrix[row][col] = calEnergy(col, row);
+            }
         }
     }
 
