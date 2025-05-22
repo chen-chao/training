@@ -1,0 +1,70 @@
+* Brain Teasers
+
+1. Add arithmetic operators(plus, minus, times, divide) to make the
+   following expression true: 3 1 3 6=8. You can use any parentheses
+   you'd like.
+
+Solution: (3+1)/3*6=8
+
+2. There is an 8x8 chess board in which two diagonally opposite
+   corners have been cut off. You are given 31 dominos, and a single
+   domino can cover exactly two squares. Can you use the 31 dominos to
+   cover the entire board? Prove your answer (by providing an example,
+   or showing why it’s impossible).
+   
+Solution: One domino can only cover a black and a white grid, but the
+chess board remains 32 black grids and 30 white grids.
+
+3. You have a five quart jug and a three quart jug, and an unlimited
+   supply of water (but no measuring cups). How would you come up with
+   exactly four quarts of water? NOTE: The jugs are oddly shaped, such
+   that filling up exactly ‘half’ of the jug would be impossible.
+
+Solution: 5x-3y=4 -> x=2, y=2. i.e. 5-(3-(5-3))=4
+
+4. A bunch of men are on an island. A genie comes down and gathers
+   everyone together and places a magical hat on some people’s heads
+   (i.e., at least one person has a hat). The hat is magical: it can
+   be seen by other people, but not by the wearer of the hat
+   himself. To remove the hat, those (and only those who have a hat)
+   must dunk themselves underwater at exactly midnight. If there are n
+   people and c hats, how long does it take the men to remove the
+   hats? The men cannot tell each other (in any way) that they have a
+   hat. FOLLOW UP: Prove that your solution is correct.
+   
+Solution: If c is known, than the wearers will know they wear hats
+instantly, because the wearer would know there is only c-1 hats on
+others' heads. 
+
+If c is unknown, we can enumerate the conditions:
+
+If c = 1, the wearer will know he wears a hat instantly, for there is no
+hat on others' heads.
+
+If no person moves at this time, then c can't be 1. Assume c = 2, the
+wearer will know he wears a hat instantly, for there is only one hat
+on others' heads.
+
+If there is still no one goes to the water, then c can't be 2, and so on.
+
+So if no one leaves in an enough time, they will know that they all
+have a hat. They will all go to stay underwater at midnight.
+
+
+5. There is a building of 100 floors. If an egg drops from the Nth
+   floor or above it will break. If it’s dropped from any floor below,
+   it will not break. You’re given 2 eggs. Find N, while minimizing
+   the number of drops for the worst case.
+   
+Solution: [[http://ppwwyyxx.com/2013/Problem-of-Two-Eggs/][Problem of Two Eggs]].
+   
+
+6. There are one hundred closed lockers in a hallway. A man begins by
+   opening all one hundred lockers. Next, he closes every second
+   locker. Then he goes to every third locker and closes it if it is
+   open or opens it if it is closed (e.g., he toggles every third
+   locker). After his one hundredth pass in the hallway, in which he
+   toggles only locker number one hundred, how many lockers are open?
+   
+Solution: Locker number with even factors will stay open, while others
+will stay closed.
